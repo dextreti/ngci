@@ -26,15 +26,10 @@ jobs:
       - name: Build Angular App
         run: npm run build -- --base-href="/ngci/"
 
-      - name: Clean up existing worktree
-        run: |
-          git worktree prune
-          rm -rf github-pages-deploy-action-temp-deployment-folder
-
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
-          branch: main # This branch is created automatically; it can be any branch name
+          branch: gh-pages # This branch is created automatically; it can be any branch name
           folder: dist/ngci/browser
           clean: true
           force: true
