@@ -10,4 +10,10 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'ngci';
+  time = new Date();
+  constructor() {
+    setInterval(() => {
+      this.time = new Date();
+    }, 1000);
+  }
 }
