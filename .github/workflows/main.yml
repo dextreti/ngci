@@ -1,10 +1,8 @@
 name: Deploy Angular App to GitHub Pages
-
 on:
   push:
     branches:
-      - main # Change this if your default branch is different
-
+      - main
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
@@ -17,19 +15,28 @@ jobs:
         with:
           node-version: 20
 
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+
       - name: Install Dependencies
         run: npm install
 
       - name: Run Tests
-        run: npm run test:ci # Allow running in GitHub workflow CI testing
+        run: npm run test:ci
 
       - name: Build Angular App
         run: npm run build -- --output-path=dist/ngci/browser --base-href="/ngci/"
 
+      - name: Disable Jekyll
+        run: touch dist/ngci/browser/.nojekyll
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
-          branch: gh-pages # This branch is created automatically; it can be any branch name
+          branch: gh-pages
           folder: dist/ngci/browser
           clean: true
-          force: true
+          token: ${{ secrets.GITHUB_TOKEN }}
