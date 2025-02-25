@@ -4,11 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production",  
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
-    "ci": "ng build --configuration=production" 
+    "ci": "ng build --configuration=production"
+    
   },
   "private": true,
   "dependencies": {
