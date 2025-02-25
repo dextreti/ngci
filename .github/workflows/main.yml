@@ -28,7 +28,7 @@ jobs:
         run: npm run test:ci
 
       - name: Build Angular App
-        run: npm run build -- --output-path=dist/ngci --base-href="/ngci/"
+        run: npm run build -- --output-path=dist/ngci/browser --base-href="/ngci/"
 
       - name: Disable Jekyll
         run: touch dist/ngci/browser/.nojekyll
@@ -37,6 +37,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           branch: gh-pages
-          folder: dist/ngci
+          folder: dist/ngci/browser
           clean: true
           token: ${{ secrets.GITHUB_TOKEN }}
